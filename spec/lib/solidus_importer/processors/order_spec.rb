@@ -26,28 +26,28 @@ RSpec.describe SolidusImporter::Processors::Order do
 
       before { allow(Spree::Store).to receive(:default).and_return(build_stubbed(:store)) }
 
-      it 'creates a new order' do
-        expect { described_method }.to change { Spree::Order.count }.by(1)
+      it 'returns an hash with :order' do
+        described_method
         expect(context).to have_key(:order)
+        expect(context[:order][:number]).to eq "R123456789"
       end
 
-      context 'with an existing valid order' do
-        let!(:order) { create(:order, number: data['Name'], email: data['Email']) }
-
-        it 'updates the order' do
-          expect { described_method }.not_to(change{ Spree::Order.count })
-          expect(context).to have_key(:order)
-          expect(order.reload.email).to eq('an_email@example.com')
-        end
-      end
-
-      context 'with an existing invalid order' do
-        let!(:order) { create(:order, number: data['Name'], email: data['Email']) }
-
-        before { order.update_column(:state, 'an invalid state') }
-
-        it 'raises an exception' do
-          expect { described_method }.to raise_error(ActiveRecord::RecordInvalid, /State is invalid/)
+      it 'returns the order with some required keys with default values' do
+        %i[
+          number
+          completed_at
+          store
+          currency
+          email
+          special_instructions
+          line_items_attributes
+          bill_address_attributes
+          ship_address_attributes
+          shipments_attributes
+          payments_attributes
+        ].each do |key|
+          described_method
+          expect(context[:order]).to have_key(key)
         end
       end
     end
