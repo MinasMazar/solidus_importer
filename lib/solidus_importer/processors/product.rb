@@ -13,8 +13,7 @@ module SolidusImporter
         @options ||= {
           available_on: Date.current.yesterday,
           not_available: nil,
-          price: 0,
-          shipping_category: Spree::ShippingCategory.find_by(name: 'Default') || Spree::ShippingCategory.first
+          price: 0
         }
       end
 
@@ -33,7 +32,7 @@ module SolidusImporter
           product.slug = @data['Handle']
           product.price = options[:price]
           product.available_on = available? ? options[:available_on] : options[:not_available]
-          product.shipping_category = options[:shipping_category]
+          product.shipping_category = shipping_category
 
           # Apply the row attributes
           product.name = @data['Title'] unless @data['Title'].nil?
