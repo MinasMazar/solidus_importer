@@ -138,11 +138,11 @@ RSpec.describe 'Import from CSV files' do # rubocop:disable RSpec/DescribeClass
     let(:credit_owed_order) { Spree::Order.first }
     let(:balance_due_order) { Spree::Order.second }
     let(:payment) { imported_order.payments.first }
-    let!(:variant) { create(:variant, sku: 'a-123') }
 
     before do
       create(:variant, sku: 'a-456')
       create(:variant, sku: 'b-001')
+      create(:variant, sku: 'a-123')
     end
 
     it 'imports some orders' do
@@ -157,7 +157,7 @@ RSpec.describe 'Import from CSV files' do # rubocop:disable RSpec/DescribeClass
       expect(credit_owed_order.line_items).not_to be_blank
     end
 
-    xit 'import an order with bill and ship addresses' do
+    it 'import an order with bill and ship addresses' do
       import
       expect(credit_owed_order.bill_address).not_to be_blank
       expect(credit_owed_order.ship_address).not_to be_blank
