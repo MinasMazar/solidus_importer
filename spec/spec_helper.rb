@@ -24,4 +24,8 @@ require 'solidus_importer/factories'
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
+
+  config.before(:suite, type: :feature) do
+    Spree::Core::Engine.load_seed
+  end
 end
