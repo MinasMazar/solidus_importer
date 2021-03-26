@@ -12,14 +12,14 @@ module SolidusImporter
         ]
       },
       orders: {
-        importer: SolidusImporter::OrderImporter,
+        importer: SolidusImporter::SpreeCoreOrderImporter::OrderImporter,
         processors: [
-          SolidusImporter::Processors::Order,
-          SolidusImporter::Processors::BillAddress,
-          SolidusImporter::Processors::ShipAddress,
-          SolidusImporter::Processors::LineItem,
-          SolidusImporter::Processors::Shipment,
-          SolidusImporter::Processors::Payment,
+          SolidusImporter::Processors::SpreeCoreOrderImporter::Order,
+          SolidusImporter::Processors::SpreeCoreOrderImporter::BillAddress,
+          SolidusImporter::Processors::SpreeCoreOrderImporter::ShipAddress,
+          SolidusImporter::Processors::SpreeCoreOrderImporter::LineItem,
+          SolidusImporter::Processors::SpreeCoreOrderImporter::Shipment,
+          SolidusImporter::Processors::SpreeCoreOrderImporter::Payment,
           SolidusImporter::Processors::Log
         ]
       },

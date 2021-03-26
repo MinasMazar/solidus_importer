@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusImporter::Processors::Payment do
+RSpec.describe SolidusImporter::Processors::SpreeCoreOrderImporter::Payment do
   describe '#call' do
     subject(:described_method) { described_class.call(context) }
 

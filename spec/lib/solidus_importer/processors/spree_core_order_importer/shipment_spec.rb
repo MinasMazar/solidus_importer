@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusImporter::Processors::LineItem do
+RSpec.describe SolidusImporter::Processors::SpreeCoreOrderImporter::Shipment do
   describe '#call' do
     subject(:described_method) { described_class.call(context) }
 
@@ -10,13 +10,13 @@ RSpec.describe SolidusImporter::Processors::LineItem do
       { data: data }
     end
     let(:data) do
-      { 'Lineitem sku' => 'a-sku' }
+      { 'Shipping Line Title' => 'ACME Shipping' }
     end
 
-    it 'put line_items_attributes into order data' do
+    it 'put shipments_attributes into order data' do
       described_method
       expect(context).to have_key(:order)
-      expect(context[:order][:line_items_attributes]).not_to be_empty
+      expect(context[:order][:shipments_attributes]).not_to be_empty
     end
   end
 end

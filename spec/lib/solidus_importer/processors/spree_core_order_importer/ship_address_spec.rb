@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusImporter::Processors::ShipAddress do
+RSpec.describe SolidusImporter::Processors::SpreeCoreOrderImporter::ShipAddress do
   describe '#call' do
     subject(:described_method) { described_class.call(context) }
 

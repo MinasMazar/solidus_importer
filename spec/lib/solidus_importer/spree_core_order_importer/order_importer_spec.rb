@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusImporter::OrderImporter do
+RSpec.describe SolidusImporter::SpreeCoreOrderImporter::OrderImporter do
   subject(:described_instance) { described_class.new(options) }
 
   let(:options) { {} }
