@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusImporter::Processors::OptionTypes do
+RSpec.describe SolidusImporter::Processors::Product::OptionTypes do
   describe '#call' do
     subject(:described_method) { described_class.call(context) }
 

@@ -26,12 +26,12 @@ module SolidusImporter
       products: {
         importer: SolidusImporter::BaseImporter,
         processors: [
-          SolidusImporter::Processors::Product,
-          SolidusImporter::Processors::Variant,
-          SolidusImporter::Processors::OptionTypes,
-          SolidusImporter::Processors::OptionValues,
-          SolidusImporter::Processors::ProductImages,
-          SolidusImporter::Processors::VariantImages,
+          SolidusImporter::Processors::Product::Product,
+          SolidusImporter::Processors::Product::Variant,
+          SolidusImporter::Processors::Product::OptionTypes,
+          SolidusImporter::Processors::Product::OptionValues,
+          SolidusImporter::Processors::Product::ProductImages,
+          SolidusImporter::Processors::Product::VariantImages,
           SolidusImporter::Processors::Log
         ]
       }
