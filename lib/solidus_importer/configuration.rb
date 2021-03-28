@@ -23,6 +23,13 @@ module SolidusImporter
           SolidusImporter::Processors::Log
         ]
       },
+      orders_v2: {
+        importer: SolidusImporter::BaseImporter,
+        processors: [
+          SolidusImporter::Processors::Order::Order,
+          SolidusImporter::Processors::Log
+        ]
+      },
       products: {
         importer: SolidusImporter::BaseImporter,
         processors: [
