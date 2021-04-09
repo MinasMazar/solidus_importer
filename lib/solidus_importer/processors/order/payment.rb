@@ -8,14 +8,13 @@ module SolidusImporter
 
         def call(context)
           @data = context.fetch(:data)
-
           self.order = context.fetch(:order)
 
-          check_data
+          return if order.blank? || !transaction_status.success?
 
-          return if transaction_amount.zero?
-
-          context.merge!(payment: process_payment)
+          @payment = order.payments.first || prepare_payment
+          @payment.amount = amount
+          @payment.save!
         end
 
         def default_payment_method
@@ -27,45 +26,22 @@ module SolidusImporter
 
         private
 
-        def check_data
-          handle_missing_order if order.blank?
-        end
-
-        def transaction_amount
-          @data['Transaction Amount'].to_d
+        def amount
+          order.line_items.sum(&:total)
         end
 
         def transaction_status
-          status = @data['Transaction Status']
-          return 'success' if status.blank?
-
-          status
-        end
-
-        def evaluate_state
-          transaction_status.inquiry.success? && 'completed'
-        end
-
-        def payment
-          @payment ||= prepare_payment
+          (@data['Transaction Status'] || 'success').inquiry
         end
 
         def prepare_payment
           Spree::Payment.new do |new_payment|
-            new_payment.state = evaluate_state
+            new_payment.state = :completed
             new_payment.order_id = order.id
-            new_payment.amount = transaction_amount
+            new_payment.amount = amount
             new_payment.payment_method = default_payment_method
             new_payment.source = default_payment_method
           end
-        end
-
-        def process_payment
-          payment.tap(&:save!)
-        end
-
-        def handle_missing_order
-          raise(SolidusImporter::Exception, 'no :order given')
         end
       end
     end
