@@ -23,7 +23,7 @@ module SolidusImporter
           return if line_item.blank?
           return if evaluate_state.inquiry.pending?
 
-          context.merge!(shipment: process_shipment)
+          order.shipments << process_shipment
         end
 
         def options
