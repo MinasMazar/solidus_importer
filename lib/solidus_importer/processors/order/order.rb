@@ -27,6 +27,9 @@ module SolidusImporter
           order.email = email
           order.user = user
           order.special_instructions = special_instructions
+          order.state = :complete
+          order.tax_total = tax_total
+          order.completed_at = completed_at
           order
         end
 
@@ -57,6 +60,10 @@ module SolidusImporter
 
         def special_instructions
           @data['Note']
+        end
+
+        def tax_total
+          @data['Total Tax']
         end
 
         def user
