@@ -30,7 +30,6 @@ module SolidusImporter
           SolidusImporter::Processors::Order::BillAddress,
           SolidusImporter::Processors::Order::ShipAddress,
           SolidusImporter::Processors::Order::LineItem,
-          SolidusImporter::Processors::Order::Shipment,
           SolidusImporter::Processors::Order::Payment,
           SolidusImporter::Processors::Log
         ]
